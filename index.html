@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Aroma - Tempat Bersantai Favorit Anda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spin 20s linear infinite;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: colors.amber,
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-amber-50">
+    <div x-data="{ activeTab: 'home' }">
+        <!-- Navbar -->
+        <nav class="bg-amber-800 text-white p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold">Cafe Aroma Malang Sumatera</a>
+                <div class="space-x-4">
+                    <a @click="activeTab = 'home'" :class="{ 'text-amber-300': activeTab === 'home' }" href="#" class="hover:text-amber-300">Home</a>
+                    <a @click="activeTab = 'about'" :class="{ 'text-amber-300': activeTab === 'about' }" href="#" class="hover:text-amber-300">About</a>
+                    <a @click="activeTab = 'contact'" :class="{ 'text-amber-300': activeTab === 'contact' }" href="#" class="hover:text-amber-300">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="bg-amber-700 text-white py-20">
+            <div class="container mx-auto text-center">
+                <h1 class="text-5xl font-bold mb-4">Selamat Datang di Cafe Aroma Surabaya</h1>
+                <p class="text-xl mb-8">Nikmati kopi terbaik dan suasana yang menenangkan</p>
+                <img src="image/kopi.jpg" alt="Coffee Cup" class="mx-auto w-32 h-32 spin-slow">
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="container mx-auto mt-8 p-4">
+            <!-- Home Tab -->
+            <div x-show="activeTab === 'home'">
+                <h2 class="text-3xl font-bold mb-4">Menu Favorit Kami</h2>
+                <!-- Slider/Carousel -->
+                <div class="mb-8 relative" x-data="{ currentSlide: 0 }">
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="flex transition-transform duration-300 ease-in-out" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+                            <div class="w-full flex-shrink-0">
+                                <img src="image/kopi.jpg" alt="Menu 1" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="w-full flex-shrink-0">
+                                <img src="image/kopi.jpg" alt="Menu 2" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="w-full flex-shrink-0">
+                                <img src="image/kopi.jpg" alt="Menu 3" class="w-full h-64 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <button @click="currentSlide = (currentSlide - 1 + 3) % 3" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-r">←</button>
+                    <button @click="currentSlide = (currentSlide + 1) % 3" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-l">→</button>
+                </div>
+
+                <!-- Gallery -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <img src="/api/placeholder/400/300" alt="Gallery 1" class="w-full h-48 object-cover rounded">
+                    <img src="/api/placeholder/400/300" alt="Gallery 2" class="w-full h-48 object-cover rounded">
+                    <img src="/api/placeholder/400/300" alt="Gallery 3" class="w-full h-48 object-cover rounded">
+                </div>
+
+                <!-- Testimonials/Reviews -->
+                <div class="bg-amber-100 p-6 rounded-lg mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Apa Kata Pelanggan Kami</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <p class="italic">"Kopi terbaik yang pernah saya cicipi!"</p>
+                            <p class="font-bold mt-2">- Andi</p>
+                        </div>
+                        <div class="bg-white p-4 rounded shadow">
+                            <p class="italic">"Suasananya sangat nyaman untuk bekerja."</p>
+                            <p class="font-bold mt-2">- Budi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog/News Section -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Berita Terbaru</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <h4 class="font-bold mb-2">Workshop Latte Art</h4>
+                            <p>Ikuti workshop latte art kami minggu depan dan pelajari cara membuat latte yang indah!</p>
+                        </div>
+                        <div class="bg-white p-4 rounded shadow">
+                            <h4 class="font-bold mb-2">Menu Baru: Kopi Rempah</h4>
+                            <p>Coba menu baru kami, kopi dengan campuran rempah khas Indonesia!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div x-show="activeTab === 'about'">
+                <h2 class="text-3xl font-bold mb-4">Tentang Cafe Aroma</h2>
+                <p class="mb-4">Cafe Aroma adalah tempat yang sempurna untuk menikmati secangkir kopi berkualitas tinggi dalam suasana yang nyaman dan santai. Didirikan pada tahun 2010, kami telah melayani ribuan pelanggan dengan berbagai pilihan kopi dan makanan ringan yang lezat.</p>
+                <p class="mb-4">Kami bangga menggunakan biji kopi pilihan dari petani lokal dan selalu berusaha untuk mendukung komunitas sekitar kami. Setiap cangkir kopi yang kami sajikan adalah hasil dari dedikasi dan passion kami terhadap seni meracik kopi.</p>
+                <img src="image/kopi.jpg" alt="Cafe Interior" class="w-full h-64 object-cover rounded mb-4">
+            </div>
+
+            <!-- Contact Tab -->
+            <div x-show="activeTab === 'contact'">
+                <h2 class="text-3xl font-bold mb-4">Hubungi Kami</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="mb-2"><strong>Alamat:</strong> Jl. Kopi No. 123, Jakarta</p>
+                        <p class="mb-2"><strong>Telepon:</strong> (021) 1234-5678</p>
+                        <p class="mb-2"><strong>Email:</strong> info@cafearoma.com</p>
+                        <p class="mb-4"><strong>Jam Buka:</strong> Setiap hari, 07.00 - 22.00</p>
+                        <img src="/api/placeholder/400/200" alt="Peta Lokasi" class="w-full h-48 object-cover rounded">
+                    </div>
+                    <form class="bg-white p-6 rounded-lg shadow">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-bold mb-2">Nama</label>
+                            <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 font-bold mb-2">Pesan</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-amber-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-amber-500 text-white font-bold py-2 px-4 rounded hover:bg-amber-600 transition duration-300">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-amber-800 text-white mt-8 py-8">
+            <div class="container mx-auto text-center">
+                <p>&copy; 2024 Cafe Aroma. Hak Cipta Dilindungi.</p>
+                <div class="mt-4">
+                    <a href="#" class="text-amber-300 hover:text-amber-100 mx-2">Facebook</a>
+                    <a href="#" class="text-amber-300 hover:text-amber-100 mx-2">Instagram</a>
+                    <a href="#" class="text-amber-300 hover:text-amber-100 mx-2">Twitter</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Search Bar (Fixed to bottom) -->
+    <div class="fixed bottom-0 left-0 right-0 bg-amber-700 p-4">
+        <div class="container mx-auto">
+            <input type="text" placeholder="Cari menu atau artikel..." class="w-full px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-300">
+        </div>
+    </div>
+</body>
+</html>
